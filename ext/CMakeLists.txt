@@ -4,6 +4,15 @@ SET (libsolvext_SRCS
 SET (libsolvext_HEADERS
     tools_util.h solv_xfopen.h testcase.h)
 
+IF (NOT HAVE_FOPENCOOKIE AND NOT HAVE_FUNOPEN)
+    SET (libsolvext_SRCS ${libsolvext_SRCS}
+        solv_xfopen_stdioext_fmemopen.c
+        solv_xfopen_stdioext_fopencookie.c
+        solv_xfopen_stdioext_open_memstream.c)
+    SET (libsolvext_HEADERS ${libsolvext_HEADERS}
+        solv_xfopen_stdioext.h)
+ENDIF (NOT HAVE_FOPENCOOKIE AND NOT HAVE_FUNOPEN)
+
 IF (ENABLE_RPMDB)
     SET (libsolvext_SRCS ${libsolvext_SRCS}
         pool_fileconflicts.c repo_rpmdb.c)
