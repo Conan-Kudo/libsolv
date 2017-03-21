@@ -43,6 +43,24 @@ IF (COMMAND cmake_policy)
 ENDIF (COMMAND cmake_policy)
 
 include (GNUInstallDirs)
+
+# Legacy options check to translate to new configuration vars
+IF (DEFINED LIB)
+   MESSAGE (WARNING "-DLIB is deprecated and will be removed, use -DCMAKE_INSTALL_LIBDIR")
+   SET (CMAKE_INSTALL_LIBDIR "${LIB}")
+ENDIF (DEFINED LIB)
+
+IF (DEFINED INCLUDE)
+   MESSAGE (WARNING "-DINCLUDE is deprecated and will be removed, use -DCMAKE_INSTALL_INCLUDEDIR")
+   SET (CMAKE_INSTALL_INCLUDEDIR "${INCLUDE}")
+ENDIF (DEFINED INCLUDE)
+
+IF (DEFINED MAN_INSTALL_DIR)
+   MESSAGE (WARNING "-DMAN_INSTALL_DIR is deprecated and will be removed, use -DCMAKE_INSTALL_MANDIR")
+   SET (CMAKE_INSTALL_MANDIR "${MAN_INSTALL_DIR}")
+ENDIF (DEFINED MAN_INSTALL_DIR)
+
+
 message (STATUS "Libraries will be installed in ${CMAKE_INSTALL_FULL_LIBDIR}")
 message (STATUS "Header files will be installed in ${CMAKE_INSTALL_FULL_INCLUDEDIR}")
 message (STATUS "Binaries will be installed in ${CMAKE_INSTALL_FULL_BINDIR}")
